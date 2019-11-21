@@ -13,12 +13,12 @@ su deploy  o ssh deploy@192.168.1.18
 										
 INSTALLING RUBY WITH RBENV user deploy										
 sudo apt-get install curl										
-curl -sL https://deb.nodesource.com/setup_10.x | sudo -E bash -		# Adding Node.js 10 repository								
-curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | sudo apt-key add -		# Adding Yarn repository								
+curl -sL https://deb.nodesource.com/setup_10.x | sudo -E bash -		                                  								
+curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | sudo apt-key add -		                         								
 echo "deb https://dl.yarnpkg.com/debian/ stable main" | sudo tee /etc/apt/sources.list.d/yarn.list										
-sudo add-apt-repository ppa:chris-lea/redis-server		# Adding redis- repository								
-sudo apt-get update		# Refresh our packages list with the new repositories								
-sudo apt-get install git-core curl zlib1g-dev build-essential libssl-dev libreadline-dev libyaml-dev libsqlite3-dev sqlite3 libxml2-dev libxslt1-dev libcurl4-openssl-dev software-properties-common libffi-dev dirmngr gnupg apt-transport-https ca-certificates redis-server redis-tools nodejs yarn		# Install our dependencies for compiiling Ruby along with Node.js and Yarn								
+sudo add-apt-repository ppa:chris-lea/redis-server		                                          								
+sudo apt-get update		                                                                          								
+sudo apt-get install git-core curl zlib1g-dev build-essential libssl-dev libreadline-dev libyaml-dev libsqlite3-dev sqlite3 libxml2-dev libxslt1-dev libcurl4-openssl-dev software-properties-common libffi-dev dirmngr gnupg apt-transport-https ca-certificates redis-server redis-tools nodejs yarn		                                                                         
 										
 git clone https://github.com/rbenv/rbenv.git ~/.rbenv										
 echo 'export PATH="$HOME/.rbenv/bin:$PATH"' >> ~/.bashrc										
@@ -29,13 +29,13 @@ git clone https://github.com/rbenv/rbenv-vars.git ~/.rbenv/plugins/rbenv-vars
 exec $SHELL										
 rbenv install 2.6.5										
 rbenv global 2.6.5										
-ruby -v		# ruby 2.6.5p114 (2019-10-01 revision 67812) [x86_64-linux]								
+ruby -v									
 										
 										
 										
 INSTALLING BUNDLER user deploy										
 gem install bundler										
-bundle -v		#Bundler version 2.0.2 								
+bundle -v								
 If it tells you bundle not found, run rbenv rehash and try again.										
 										
 										
@@ -89,13 +89,10 @@ GRANT ALL PRIVILEGES ON myapp.* TO 'deploy'@'localhost';
 GRANT ALL PRIVILEGES ON myapp.* TO 'deploy'@'%';										
 FLUSH PRIVILEGES;										
 										
-show databases;		ver dbs								
-select User from mysql.user;		ver users								
-SHOW GRANTS FOR deploy@localhost;		ver permisos								
-use [db name];		switch 								
-show tables;		ver tablas								
-drop database dbname;		borrar db								
-										
+show databases;								
+select User from mysql.user;									
+SHOW GRANTS FOR deploy@localhost;									
+						
 										
 INSTALL RAILS AND MAKE MYAPP										
 gem install rails										
@@ -107,21 +104,20 @@ http://localhost:3000
 TUNING MYAPP RAILS										
 rails generate controller Welcome index										
 nano /home/deploy/myapp/app/views/welcome/index.html.erb										
-nano /home/deploy/myapp/config/routes.rb										
+nano /home/deploy/myapp/config/routes.rb
+
 "Rails.application.routes.draw do
-  get 'welcome/index'
- 
+  get 'welcome/index' 
   root 'welcome#index'
 end"										
-		restart app								
-touch tmp/restart.txt										
-										
-						
-										
-ERROR DNS ADD										
-To allow requests to yourdomaindns.org, add the following to your environment configuration:										
+							
+								
+#######																	To allow requests to yourdomaindns.org, add the following to your environment configuration:	
+#######
 config/enviroments/development.rb										
-config.hosts << "yourdomain-dns.org"										
+config.hosts << "yourdomaindns.org"									
+
+touch tmp/restart.txt
 										
 rails restart										
 										
