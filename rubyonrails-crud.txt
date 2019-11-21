@@ -1,8 +1,8 @@
-rails new store
-rails generate resource product name:string description:text price:integer    #genera recursos , tabla product , campos name description price
+$deploy@linux: rails new store
+$deploy@linux: rails generate resource product name:string description:text price:integer    #genera recursos , tabla product , campos name description price
 
 
-nano /store/config/routes.rb                                                  #edit routes  
+$deploy@linux: nano /store/config/routes.rb                                                  #edit routes  
  
 Rails.application.routes.draw do
   # resources :products                                                       #comment resources:products
@@ -13,7 +13,7 @@ end
 
 
 
-nano /store/app/controllers/products_controller.rb                           # edit file
+$deploy@linux: nano /store/app/controllers/products_controller.rb                           # edit file
 
 class ProductsController < ApplicationController
  def index                                                                   # add 
@@ -23,7 +23,7 @@ end
 
 
 
-> /store/app/views/products/index.html.erb                                   #new file 
+$deploy@linux: > /store/app/views/products/index.html.erb                                   #new file 
 
 <h1>Listado de prodructos</h1>
 <table>
@@ -48,3 +48,11 @@ end
   </tr>
     <% end %>
 </table>
+
+
+
+$deploy@linux: rails db:migrate
+$deploy@linux: rails c             #query insert
+$deploy@linux: p1=Product.create(name:"producto1", description:"descripcion producto1", price:100)
+$deploy@linux: p2=Product.create(name:"producto2", description:"descripcion producto2", price:500)
+
