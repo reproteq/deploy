@@ -1,3 +1,4 @@
+###  fuente https://www.youtube.com/watch?v=RjF3u_TLtFo  ###
 $deploy@linux: rails new store
 $deploy@linux: rails generate resource product name:string description:text price:integer    #genera recursos , tabla product , campos name description price
 
