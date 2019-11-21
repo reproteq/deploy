@@ -8,7 +8,7 @@ $deploy@linux: nano /store/config/routes.rb                                     
 Rails.application.routes.draw do
   # resources :products                                                       #comment resources:products
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
-  get '/products',to: 'product#index'                                         # add index path
+  get '/products',to: 'products#index'                                         # add index path
   
 end
 
