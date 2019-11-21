@@ -1,0 +1,11 @@
+### MAKE BLOG ###		
+
+gem install rails										
+rails -v		rails version		
+rails new blog
+cd blog																
+rails generate scaffold article										
+rake db:migrate										
+rails server
+
+http://localhost:3000/articles
