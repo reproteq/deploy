@@ -1,0 +1,50 @@
+rails new store
+rails generate resource product name:string description:text price:integer    #genera recursos , tabla product , campos name description price
+
+
+nano /store/config/routes.rb                                                  #edit routes  
+ 
+Rails.application.routes.draw do
+  # resources :products                                                       #comment resources:products
+  # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
+  get '/products',to: 'product#index'                                         # add index path
+  
+end
+
+
+
+nano /store/app/controllers/products_controller.rb                           # edit file
+
+class ProductsController < ApplicationController
+ def index                                                                   # add 
+ @products = Product.all
+ end
+end
+
+
+
+> /store/app/views/products/index.html.erb                                   #new file 
+
+<h1>Listado de prodructos</h1>
+<table>
+  <tr>
+  <thead>
+   <th>Nombre </th>
+   <th>Descripcion </th>
+   <th>Precio </th>
+  </thead>
+  </tr>
+  
+   <% @products.each do |product| %>
+  <tr>
+   <td><%= product.name %> </td>
+   <td><%= product.description %> </td>
+   <td><%= product.price %> </td>   
+   <td>
+     <%= link_to "Mostrar" %>
+     <%= link_to "Editar" %>
+     <%= link_to "Eliminar" %>
+   </td>
+  </tr>
+    <% end %>
+</table>
