@@ -1,7 +1,8 @@
+################################################################################################################# new instance, resource
 $deploy@linux: rails new store
 $deploy@linux: rails generate resource product name:string description:text price:integer   
 
-
+################################################################################################################# routes
 $deploy@linux: nano /store/config/routes.rb                                                
  
 Rails.application.routes.draw do
@@ -18,7 +19,7 @@ Rails.application.routes.draw do
 end
 
 
-
+################################################################################################################# controllers
 $deploy@linux: nano /store/app/controllers/products_controller.rb                          
 
 class ProductsController < ApplicationController
@@ -62,15 +63,12 @@ class ProductsController < ApplicationController
   private 
    def product_params                                                                   
      params.require(:product).permit(:name, :description, :price)
-   end  
-   
+   end    
    
 end
 
-
-
-
-$deploy@linux: > /store/app/views/products/index.html.erb                                   #new file 
+#################################################################################################################  index
+$deploy@linux: > /store/app/views/products/index.html.erb                                  
 
 <h1>Listado de prodructos</h1>
 <%= link_to "Crear Producto" , products_new_path %>
@@ -95,7 +93,7 @@ $deploy@linux: > /store/app/views/products/index.html.erb                       
     <% end %>
 </table>
 
-
+#################################################################################################################  new
 $deploy@linux: > /store/app/views/products/new.html.erb  
 
 <%= form_for @product do |f| %>
@@ -120,10 +118,11 @@ $deploy@linux: > /store/app/views/products/new.html.erb
 
 <% end %>
 
-
+################################################################################################################# migrate, inserts
 
 $deploy@linux: rails db:migrate
-$deploy@linux: rails c             #query insert
+$deploy@linux: rails c             
+
 $deploy@linux: p1=Product.create(name:"producto1", description:"descripcion producto1", price:100)
 $deploy@linux: p2=Product.create(name:"producto2", description:"descripcion producto2", price:500)
 
