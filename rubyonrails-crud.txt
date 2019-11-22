@@ -1,32 +1,79 @@
-###  fuente https://www.youtube.com/watch?v=RjF3u_TLtFo  ###
 $deploy@linux: rails new store
-$deploy@linux: rails generate resource product name:string description:text price:integer    #genera recursos , tabla product , campos name description price
+$deploy@linux: rails generate resource product name:string description:text price:integer   
 
 
-$deploy@linux: nano /store/config/routes.rb                                                  #edit routes  
+$deploy@linux: nano /store/config/routes.rb                                                
  
 Rails.application.routes.draw do
-  # resources :products                                                       #comment resources:products
-  # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
-  get '/products',to: 'products#index'                                         # add index path
-  
+ # resources :products
+ # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
+   get '/products',to: 'products#index'
+   get '/products/new',to: 'products#new'
+   post '/products', to: 'products#create'
+   get '/product:id',to: 'products#show', as: 'product'
+   get '/products/:id/edit',to: 'products#edit', as: 'edit_product'
+   patch '/product/:id', to: 'products#update'   
+   put '/product/:id', to: 'products#update'
+   delete '/product/:id', to: 'products#delete' 
 end
 
 
 
-$deploy@linux: nano /store/app/controllers/products_controller.rb                           # edit file
+$deploy@linux: nano /store/app/controllers/products_controller.rb                          
 
 class ProductsController < ApplicationController
- def index                                                                   # add 
- @products = Product.all
- end
+   def index                                                                   
+     @products = Product.all
+   end
+   
+    def new                                                                   
+     @product = Product.new
+   end  
+
+   def create                                                                   
+     @product = Product.new(product_params)
+       if @product.save
+         redirect_to products_path
+       else
+         render :new
+       end       
+   end
+   
+   
+   def edit
+     @product = Product.find(params[:id]) 
+   end  
+   
+   def update                                                                  
+     @product = Product.find(params[:id]) 
+       if @product.update(product_params)
+         redirect_to products_path
+       else
+         render :edit
+       end
+    end   
+   
+   def delete
+     @product = Product.find(params[:id])
+     @product.delete
+     redirect_to products_path
+   end  
+   
+  private 
+   def product_params                                                                   
+     params.require(:product).permit(:name, :description, :price)
+   end  
+   
+   
 end
+
 
 
 
 $deploy@linux: > /store/app/views/products/index.html.erb                                   #new file 
 
 <h1>Listado de prodructos</h1>
+<%= link_to "Crear Producto" , products_new_path %>
 <table>
   <tr>
   <thead>
@@ -34,21 +81,44 @@ $deploy@linux: > /store/app/views/products/index.html.erb                       
    <th>Descripcion </th>
    <th>Precio </th>
   </thead>
-  </tr>
-  
+  </tr>  
    <% @products.each do |product| %>
   <tr>
    <td><%= product.name %> </td>
    <td><%= product.description %> </td>
    <td><%= product.price %> </td>   
-   <td>
-     <%= link_to "Mostrar" %>
-     <%= link_to "Editar" %>
-     <%= link_to "Eliminar" %>
+   <td>      
+     <%= link_to "Editar", edit_product_path(product) %>
+     <%= link_to "Eliminar", product, method: :delete, data: { confirm: "Eliminar Item?"} %>
    </td>
   </tr>
     <% end %>
 </table>
+
+
+$deploy@linux: > /store/app/views/products/new.html.erb  
+
+<%= form_for @product do |f| %>
+<div>
+  <%= f.label :name %>
+  <%= f.text_field :name %>
+</div>
+
+<div>
+  <%= f.label :description %>
+  <%= f.text_area :description %>
+</div>
+
+<div>
+  <%= f.label :price %>
+  <%= f.number_field :price %>
+</div>
+
+<div>
+  <%= f.submit %>
+</div>
+
+<% end %>
 
 
 
