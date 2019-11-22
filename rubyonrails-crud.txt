@@ -69,6 +69,7 @@ end
 
 #################################################################################################################  index
 $deploy@linux: > /store/app/views/products/index.html.erb                                  
+$deploy@linux: nano /store/app/views/products/index.html.erb    
 
 <h1>Listado de prodructos</h1>
 <%= link_to "Crear Producto" , products_new_path %>
@@ -95,6 +96,7 @@ $deploy@linux: > /store/app/views/products/index.html.erb
 
 #################################################################################################################  new
 $deploy@linux: > /store/app/views/products/new.html.erb  
+$deploy@linux: nano /store/app/views/products/new.html.erb
 
 <%= form_for @product do |f| %>
 <div>
@@ -115,6 +117,33 @@ $deploy@linux: > /store/app/views/products/new.html.erb
 <div>
   <%= f.submit %>
 </div>
+
+<% end %>
+
+#################################################################################################################  edit
+$deploy@linux: > /store/app/views/products/edit.html.erb  
+$deploy@linux: nano /store/app/views/products/edit.html.erb 
+
+<%= form_for @product do |f| %>
+<div>
+  <%= f.label :name %>
+  <%= f.text_field :name %>
+</div>
+
+<div>
+  <%= f.label :description %>
+  <%= f.text_area :description %>
+</div>
+
+<div>
+  <%= f.label :price %>
+  <%= f.number_field :price %>
+</div>
+
+<div>
+  <%= f.submit %>
+</div>
+
 
 <% end %>
 
