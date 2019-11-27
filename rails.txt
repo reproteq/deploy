@@ -7,7 +7,7 @@ PermitRootLogin yes
 MAKING NEW USER SUDO deploy
 adduser deploy
 adduser deploy sudo
-su deploy  o ssh deploy@192.168.1.18
+su deploy  o ssh deploy@192.168.1.xx
 
 
 INSTALLING RUBY WITH RBENV user deploy
@@ -77,8 +77,10 @@ sudo service nginx reload
 Creating a MySQL Database  deploy user
 sudo apt-get install mysql-server mysql-client libmysqlclient-dev
 sudo mysql_secure_installation
-sudo mysql  -p
+sudo mysql  -u railuser-p
+type passs here
 
+CREATE DATABASE IF NOT EXISTS myapp;
 GRANT ALL PRIVILEGES ON rails_mysql_crud.* TO 'railsuser'@'localhost';				
 GRANT ALL PRIVILEGES ON rails_mysql_crud_development.* TO 'railsuser'@'localhost';				
 GRANT ALL ON BD.* TO railsuser@localhost IDENTIFIED BY "railspas";				
