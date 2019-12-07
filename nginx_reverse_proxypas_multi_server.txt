@@ -1,0 +1,32 @@
+######### REVERSE PROXY_PAS  MULTI SERVER 
+# /etc/nginx/sites-enabled/
+#APP1
+#APP2
+#########
+
+####APP1
+server {
+  listen 80;
+  server_name rubyshop.ga www.rubyshop.com;
+
+  location / {
+    proxy_pass http://localhost:3001;
+    proxy_set_header Host $http_host;
+    proxy_set_header X-Real-IP $remote_addr;
+    proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+  }
+}
+
+
+####APP2
+server {
+ listen 80;
+ server_name rubyonrails.ga www.rubyonrails.ga;
+
+ location / {
+   proxy_pass http://localhost:3000;
+   proxy_set_header Host $http_host;
+   proxy_set_header X-Real-IP $remote_addr;
+   proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+ }
+}
