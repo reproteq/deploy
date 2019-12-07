@@ -7,7 +7,7 @@
 ####APP1
 server {
   listen 80;
-  server_name rubyshop.ga www.rubyshop.com;
+  server_name rubyshop.com www.rubyshop.com;
 
   location / {
     proxy_pass http://localhost:3001;
@@ -21,7 +21,7 @@ server {
 ####APP2
 server {
  listen 80;
- server_name rubyonrails.ga www.rubyonrails.ga;
+ server_name rubyonrails.com www.rubyonrails.com;
 
  location / {
    proxy_pass http://localhost:3000;
